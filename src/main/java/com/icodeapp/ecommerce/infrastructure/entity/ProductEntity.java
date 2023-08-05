@@ -1,6 +1,5 @@
 package com.icodeapp.ecommerce.infrastructure.entity;
 
-import com.icodeapp.ecommerce.domain.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

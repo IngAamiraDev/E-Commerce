@@ -5,6 +5,8 @@ import com.icodeapp.ecommerce.application.repository.ProductRepository;
 import com.icodeapp.ecommerce.domain.Product;
 import com.icodeapp.ecommerce.domain.User;
 
+import java.time.LocalDateTime;
+
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -26,11 +28,28 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product){
-        return   productRepository.saveProduct(product);
+        if(product.getId()==null){
+            User user = new User();
+            user.setId(1);
+            product.setDateCreated(LocalDateTime.now());
+            product.setDateUpdated(LocalDateTime.now());
+            product.setUser(user);
+            return   productRepository.saveProduct(product);
+        }else{
+            Product productDB= productRepository.getProductById(product.getId());
+            product.setCode(productDB.getCode());
+            product.setUser(productDB.getUser());
+            product.setDateCreated(productDB.getDateCreated());
+            product.setDateUpdated(LocalDateTime.now());
+            return  productRepository.saveProduct(product);
+        }
+
     }
 
     public void deleteProductById(Integer id){
         productRepository.deleteProductById(id);
     }
+
+
 
 }

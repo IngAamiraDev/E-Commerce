@@ -19,7 +19,8 @@ public interface StockMapper {
             @Mapping(source = "description", target = "description"),
             @Mapping(source = "balance", target = "balance"),
             @Mapping(source = "productEntity", target = "product")
-    })
+    }
+    )
     Stock toStock (StockEntity stockEntity);
     List<Stock>  toStocks (List<StockEntity> stockEntities);
     @InheritInverseConfiguration

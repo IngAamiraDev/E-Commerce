@@ -19,7 +19,6 @@ public interface OrderProductMapper {
 
             }
     )
-
     OrderProduct toOrderProduct(OrderProductEntity orderProductEntity);
     Iterable<OrderProduct> toOrderProducts( Iterable<OrderProductEntity> orderProductEntities);
     List<OrderProduct> toOrderProductsList( Iterable<OrderProductEntity> orderProductEntities);

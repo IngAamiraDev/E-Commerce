@@ -5,11 +5,25 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
+/**
+ * Clase que representa la clave primaria compuesta de la entidad OrderProductEntity.
+ */
 @Data
 @Embeddable
 public class OrderProductPK {
-    @ManyToOne (fetch = FetchType.LAZY)
+
+    /**
+     * La entidad OrderEntity que forma parte de la clave primaria.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     private OrderEntity orderEntity;
-    @ManyToOne (fetch = FetchType.LAZY)
-    private  ProductEntity productEntity;
+
+    /**
+     * La entidad ProductEntity que forma parte de la clave primaria.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ProductEntity productEntity;
+
+    // Resto de los atributos, constructores y métodos si los hubiera.
+
 }

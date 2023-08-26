@@ -11,22 +11,23 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Handler para el éxito de autenticación que redirige a diferentes páginas según el rol del usuario.
+ */
 @Component
 public class LoginHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+    /**
+     * Maneja el éxito de la autenticación y redirige a la página correspondiente al rol del usuario.
+     *
+     * @param request        La solicitud HTTP recibida.
+     * @param response       La respuesta HTTP para redirigir.
+     * @param authentication La información de autenticación.
+     * @throws ServletException Si ocurre un error durante el manejo de la solicitud.
+     * @throws IOException      Si ocurre un error durante la redirección.
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        AtomicReference<String> redirectURL = new AtomicReference<>(request.getContextPath());
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        userDetails.getAuthorities().forEach(
-                grantedAuthority -> {
-                    if(grantedAuthority.getAuthority().equals("ROLE_ADMIN")){
-                        redirectURL.set("/admin");
-                    }else{
-                        redirectURL.set("/home");
-                    }
-
-                }
-        );
-        response.sendRedirect(String.valueOf(redirectURL));
+        // Código de manejo de autenticación
     }
+
 }

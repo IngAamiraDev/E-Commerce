@@ -8,12 +8,16 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Esta clase representa un producto en la aplicación.
+ */
 @Data
 @AllArgsConstructor
 @ToString
 public class Product {
+
     private Integer id;
-    private  String code;
+    private String code;
     private String name;
     private String description;
     private String image;
@@ -24,7 +28,12 @@ public class Product {
 
     private User user;
 
+    /**
+     * Constructor de la clase Product.
+     * Genera un código UUID único para el producto.
+     */
     public Product() {
         this.setCode(UUID.randomUUID().toString());
     }
+
 }

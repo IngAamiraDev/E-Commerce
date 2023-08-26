@@ -7,6 +7,9 @@ import com.icodeapp.ecommerce.infrastructure.mapper.ProductMapper;
 import com.icodeapp.ecommerce.infrastructure.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Esta clase implementa la interfaz ProductRepository y proporciona acceso a los datos de productos en la base de datos.
+ */
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
     private final ProductCrudRepository productCrudRepository;
@@ -26,7 +29,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Iterable<Product> getProductsByUser(User user) {
-        return productMapper.toProducts(productCrudRepository.findByUserEntity(userMapper.toUserEntity(user)) );
+        return productMapper.toProducts(productCrudRepository.findByUserEntity(userMapper.toUserEntity(user)));
     }
 
     @Override
@@ -36,11 +39,12 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product saveProduct(Product product) {
-        return productMapper.toProduct( productCrudRepository.save(productMapper.toProductEntity(product) ) );
+        return productMapper.toProduct(productCrudRepository.save(productMapper.toProductEntity(product)));
     }
 
     @Override
     public void deleteProductById(Integer id) {
         productCrudRepository.deleteById(id);
     }
+
 }

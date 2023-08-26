@@ -24,7 +24,24 @@ public class UserDto {
     @NotBlank (message = "Clave es requerido")
     private String password;
 
+    /**
+     * Convierte el objeto UserDto a un objeto User.
+     *
+     * @return Un objeto User creado a partir de los campos de UserDto.
+     */
     public User userDtoToUser(){
-        return new User(null,this.getEmail(),this.getFirstName(), this.getLastName(),this.getEmail(), this.getAddress(), this.getCellphone(), this.getPassword(), UserType.USER, LocalDateTime.now());
+        return new User(
+                null,
+                this.getEmail(),
+                this.getFirstName(),
+                this.getLastName(),
+                this.getEmail(),
+                this.getAddress(),
+                this.getCellphone(),
+                this.getPassword(),
+                UserType.USER,
+                LocalDateTime.now()
+        );
     }
+
 }

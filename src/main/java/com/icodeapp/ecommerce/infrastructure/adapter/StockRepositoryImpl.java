@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Esta clase implementa la interfaz StockRepository y proporciona acceso a los datos de registros de stock en la base de datos.
+ */
 @Service
-public class StockRepositoryImpl  implements StockRepository {
+public class StockRepositoryImpl implements StockRepository {
 
     private final StockCrudRepository stockCrudRepository;
     private final StockMapper stockMapper;
@@ -29,6 +32,7 @@ public class StockRepositoryImpl  implements StockRepository {
 
     @Override
     public List<Stock> getStockByProduct(Product product) {
-        return stockMapper.toStocks( stockCrudRepository.findByProductEntity(productMapper.toProductEntity(product)) );
+        return stockMapper.toStocks(stockCrudRepository.findByProductEntity(productMapper.toProductEntity(product)));
     }
+
 }

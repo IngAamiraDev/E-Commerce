@@ -30,6 +30,13 @@ public class ShoppingListController {
         this.orderProductService = orderProductService;
     }
 
+    /**
+     * Muestra la lista de compras del usuario.
+     *
+     * @param model       El modelo para agregar atributos a la vista.
+     * @param httpSession La sesión HTTP actual.
+     * @return La vista que muestra la lista de compras del usuario.
+     */
     @GetMapping
     public String showShoppingList(Model model, HttpSession httpSession){
         List<Order> newListOrder = new ArrayList<>();
@@ -45,9 +52,16 @@ public class ShoppingListController {
         return "user/shoppinglist";
     }
 
+    /**
+     * Obtiene los productos de una orden específica.
+     *
+     * @param order La orden de la cual se obtienen los productos.
+     * @return La orden con los productos asociados agregados.
+     */
     private Order getOrdersProducts(Order order){
         Iterable<OrderProduct> orderProducts = orderProductService.getOrderProductsByOrder(order);
         order.addOrdersProduct((List<OrderProduct>) orderProducts);
         return order;
     }
+
 }

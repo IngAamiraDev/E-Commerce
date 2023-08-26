@@ -3,12 +3,14 @@ package com.icodeapp.ecommerce.application.service;
 import com.icodeapp.ecommerce.application.repository.StockRepository;
 import com.icodeapp.ecommerce.domain.Product;
 import com.icodeapp.ecommerce.domain.Stock;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Esta clase proporciona métodos para manejar el inventario de productos en la aplicación.
  */
+@Service
 public class StockService {
     private final StockRepository stockRepository;
 

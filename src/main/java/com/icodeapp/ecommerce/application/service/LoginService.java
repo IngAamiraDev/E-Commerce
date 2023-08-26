@@ -3,6 +3,7 @@ package com.icodeapp.ecommerce.application.service;
 import com.icodeapp.ecommerce.domain.User;
 import com.icodeapp.ecommerce.domain.UserType;
 
+
 /**
  * Esta clase proporciona métodos para manejar el inicio de sesión y obtener información sobre los usuarios.
  */

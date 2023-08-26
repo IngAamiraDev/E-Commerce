@@ -3,10 +3,12 @@ package com.icodeapp.ecommerce.application.service;
 import com.icodeapp.ecommerce.application.repository.OrderRepository;
 import com.icodeapp.ecommerce.domain.Order;
 import com.icodeapp.ecommerce.domain.User;
+import org.springframework.stereotype.Service;
 
 /**
  * Esta clase proporciona métodos para manejar las órdenes en la aplicación.
  */
+@Service
 public class OrderService {
 
     private final OrderRepository orderRepository;

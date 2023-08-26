@@ -6,10 +6,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Esta clase representa un usuario en la aplicación.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
     private Integer id;
     private String username;
     private String firstName;
@@ -20,6 +24,5 @@ public class User {
     private String password;
     private UserType userType;
     private LocalDateTime dateCreated;
-
 
 }

@@ -1,5 +1,18 @@
 package com.icodeapp.ecommerce.domain;
 
+/**
+ * Esta enumeración define los posibles tipos de usuarios en la aplicación.
+ */
 public enum UserType {
-    ADMIN, USER
+    /**
+     * Representa un usuario con permisos de administrador.
+     */
+    ADMIN,
+
+    /**
+     * Representa un usuario normal.
+     */
+    USER
+
 }
+

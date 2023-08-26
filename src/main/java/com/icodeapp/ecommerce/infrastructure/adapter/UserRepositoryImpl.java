@@ -5,6 +5,9 @@ import com.icodeapp.ecommerce.domain.User;
 import com.icodeapp.ecommerce.infrastructure.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Esta clase implementa la interfaz UserRepository y proporciona acceso a los datos de usuarios en la base de datos.
+ */
 @Repository
 public class UserRepositoryImpl implements UserRepository {
     private final UserCrudRepository userCrudRepository;
@@ -17,7 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User createUser(User user) {
-        return userMapper.toUser(userCrudRepository.save( userMapper.toUserEntity(user) ));
+        return userMapper.toUser(userCrudRepository.save(userMapper.toUserEntity(user)));
     }
 
     @Override
@@ -29,4 +32,5 @@ public class UserRepositoryImpl implements UserRepository {
     public User findById(Integer id) {
         return userMapper.toUser(userCrudRepository.findById(id).get());
     }
+
 }

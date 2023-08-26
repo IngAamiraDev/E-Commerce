@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controlador para manejar las funcionalidades relacionadas con las órdenes de compra del usuario.
+ */
 @Controller
 @RequestMapping("/user/order")
 @Slf4j
@@ -39,9 +42,16 @@ public class OrderControler {
         this.validateStock = validateStock;
     }
 
+    /**
+     * Muestra un resumen de la orden de compra para el usuario.
+     *
+     * @param model       El modelo para la vista.
+     * @param httpSession La sesión HTTP del usuario.
+     * @return La vista que muestra el resumen de la orden.
+     */
     @GetMapping("/sumary-order")
-    public String showSumaryOrder(Model model, HttpSession httpSession ){
-        log.info("id user desde la variable de session: {}",httpSession.getAttribute("iduser").toString());
+    public String showSumaryOrder(Model model, HttpSession httpSession){
+        log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
         User user = userService.findById(Integer.parseInt(httpSession.getAttribute("iduser").toString()));
         model.addAttribute("cart", cartService.getItemCarts());
         model.addAttribute("total", cartService.getTotalCart());
@@ -50,48 +60,52 @@ public class OrderControler {
         return "user/sumaryorder";
     }
 
+    /**
+     * Crea una nueva orden de compra a partir de los elementos en el carrito del usuario.
+     *
+     * @param attributes  Atributos para agregar información adicional en la redirección.
+     * @param httpSession La sesión HTTP del usuario.
+     * @return Redirige al usuario a la página de inicio después de crear la orden.
+     */
     @GetMapping("/create-order")
     public String createOrder(RedirectAttributes attributes, HttpSession httpSession){
         log.info("create order..");
-        log.info("id user desde la variable de session: {}",httpSession.getAttribute("iduser").toString());
-        //obtener user temporal
-        User user = userService.findById( Integer.parseInt(httpSession.getAttribute("iduser").toString()));
+        log.info("id user desde la variable de session: {}", httpSession.getAttribute("iduser").toString());
 
-        //order
+        // Obtener usuario temporal
+        User user = userService.findById(Integer.parseInt(httpSession.getAttribute("iduser").toString()));
+
+        // Crear orden
         Order order = new Order();
         order.setDateCreated(LocalDateTime.now());
         order.setUser(user);
 
         order = orderService.createOrder(order);
 
-        //order product
+        // Crear productos de orden
         List<OrderProduct> orderProducts = new ArrayList<>();
 
-        //itemcart - orderproduct
+        // Convertir elementos de carrito en productos de orden
         for (ItemCart itemCart : cartService.getItemCarts()){
-            orderProducts.add( new OrderProduct(productService.getProductById(itemCart.getIdProduct()), itemCart.getQuantity(), order) );
+            orderProducts.add(new OrderProduct(productService.getProductById(itemCart.getIdProduct()), itemCart.getQuantity(), order));
         }
 
-        //guardar
-        orderProducts.forEach(
-                op->{
-                    orderProductService.create(op);
-                    Stock stock = new Stock();
-                    stock.setDateCreated(LocalDateTime.now());
-                    stock.setProduct(op.getProduct());
-                    stock.setDescription("venta");
-                    stock.setUnitIn(UNIT_IN);
-                    stock.setUnitOut(op.getQuantity());
-                    stockService.saveStock(validateStock.calculateBalance(stock));
-                }
-        );
+        // Guardar productos de orden
+        orderProducts.forEach(op -> {
+            orderProductService.create(op);
+            Stock stock = new Stock();
+            stock.setDateCreated(LocalDateTime.now());
+            stock.setProduct(op.getProduct());
+            stock.setDescription("venta");
+            stock.setUnitIn(UNIT_IN);
+            stock.setUnitOut(op.getQuantity());
+            stockService.saveStock(validateStock.calculateBalance(stock));
+        });
 
-        //vaciar el carrito
+        // Vaciar el carrito
         cartService.removeAllItemsCart();
         attributes.addFlashAttribute("id", httpSession.getAttribute("iduser").toString());
         return "redirect:/home";
     }
-
-
 
 }

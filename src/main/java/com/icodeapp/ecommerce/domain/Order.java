@@ -6,20 +6,36 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Esta clase representa una orden de compra en la aplicación.
+ */
 @Data
 public class Order {
+
     private Integer id;
     private LocalDateTime dateCreated;
     private List<OrderProduct> orderProducts;
     private User user;
 
-    public void addOrdersProduct(List<OrderProduct> orderProducts){
+    /**
+     * Agrega los productos de orden a la orden.
+     *
+     * @param orderProducts La lista de productos de orden a agregar.
+     */
+    public void addOrdersProduct(List<OrderProduct> orderProducts) {
         this.setOrderProducts(orderProducts);
     }
-    public BigDecimal getTotalOrderPrice(){
-        return getOrderProducts().stream().map(
-                p->p.getTotalPrice()
-        ).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    /**
+     * Calcula el precio total de la orden sumando los precios totales de los productos de orden.
+     *
+     * @return El precio total de la orden.
+     */
+    public BigDecimal getTotalOrderPrice() {
+        return getOrderProducts().stream()
+                .map(OrderProduct::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
 
 }

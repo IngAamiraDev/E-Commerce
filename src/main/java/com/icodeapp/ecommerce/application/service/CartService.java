@@ -7,49 +7,82 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Esta clase representa un servicio para gestionar un carrito de compras.
+ */
 public class CartService {
 
     private List<ItemCart> itemCarts;
     private HashMap<Integer, ItemCart> itemCartHashMap;
 
+    /**
+     * Constructor de la clase CartService. Inicializa las estructuras de datos para el carrito.
+     */
     public CartService() {
         this.itemCartHashMap = new HashMap<>();
         this.itemCarts = new ArrayList<>();
     }
 
-    public void addItemCart(Integer quantity, Integer idProduct, String nameProduct, BigDecimal price){
+    /**
+     * Agrega un nuevo elemento al carrito.
+     *
+     * @param quantity    La cantidad del producto a agregar.
+     * @param idProduct   El ID del producto a agregar.
+     * @param nameProduct El nombre del producto a agregar.
+     * @param price       El precio del producto a agregar.
+     */
+    public void addItemCart(Integer quantity, Integer idProduct, String nameProduct, BigDecimal price) {
         ItemCart itemCart = new ItemCart(idProduct, nameProduct, quantity, price);
         itemCartHashMap.put(itemCart.getIdProduct(), itemCart);
         fillList();
     }
 
-    public  BigDecimal getTotalCart(){
+    /**
+     * Calcula el total del carrito sumando los precios de todos los elementos.
+     *
+     * @return El total del carrito.
+     */
+    public BigDecimal getTotalCart() {
         BigDecimal total = BigDecimal.ZERO;
-        for (ItemCart itemCart : itemCarts){
+        for (ItemCart itemCart : itemCarts) {
             total = total.add(itemCart.getTotalPriceItem());
         }
         return total;
     }
-    public void removeItemCart(Integer idProduct){
+
+    /**
+     * Elimina un elemento del carrito por su ID de producto.
+     *
+     * @param idProduct El ID del producto a eliminar del carrito.
+     */
+    public void removeItemCart(Integer idProduct) {
         itemCartHashMap.remove(idProduct);
         fillList();
     }
 
-    public void removeAllItemsCart(){
-        itemCartHashMap.clear();;
+    /**
+     * Elimina todos los elementos del carrito.
+     */
+    public void removeAllItemsCart() {
+        itemCartHashMap.clear();
         itemCarts.clear();
     }
 
-    private void fillList(){
+    // Métodos internos
+
+    private void fillList() {
         itemCarts.clear();
         itemCartHashMap.forEach(
-                (integer, itemCart)-> itemCarts.add(itemCart)
-
+                (integer, itemCart) -> itemCarts.add(itemCart)
         );
     }
-    //para mirar por consola
-    public List<ItemCart> getItemCarts(){
+
+    /**
+     * Devuelve una lista de los elementos actuales en el carrito.
+     *
+     * @return Una lista de los elementos en el carrito.
+     */
+    public List<ItemCart> getItemCarts() {
         return itemCarts;
     }
-
 }

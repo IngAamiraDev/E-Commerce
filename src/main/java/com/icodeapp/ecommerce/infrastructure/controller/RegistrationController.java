@@ -22,22 +22,34 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
+    /**
+     * Muestra la vista de registro de usuario.
+     *
+     * @param userDto El DTO del usuario a ser registrado.
+     * @return La vista de registro.
+     */
     @GetMapping
     public String register(UserDto userDto){
         return "register";
     }
+
+    /**
+     * Procesa la solicitud de registro de usuario.
+     *
+     * @param userDto           El DTO del usuario a ser registrado.
+     * @param bindingResult     Resultado de la validación del formulario.
+     * @param redirectAttributes Atributos para redireccionamiento y mensajes flash.
+     * @return Redirige al usuario a la página de registro después de completar el registro.
+     */
     @PostMapping
     public String registerUser(@Valid UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-//        user.setDateCreated(LocalDateTime.now());
-//        user.setUserType(UserType.USER);
-//        user.setUsername(user.getEmail());
-
         if(bindingResult.hasErrors()){
             bindingResult.getAllErrors().forEach(
-                    e->{ log.info( "Error {}", e.getDefaultMessage() ); }
+                    e -> { log.info( "Error {}", e.getDefaultMessage() ); }
             );
             return "register";
         }
+
         registrationService.register(userDto.userDtoToUser());
         redirectAttributes.addFlashAttribute("success", "Usuario creado correctamente");
         return "redirect:/register";

@@ -1,6 +1,7 @@
 package com.icodeapp.ecommerce.application.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
 /**
  * Esta clase proporciona métodos para subir y eliminar archivos en la aplicación.
  */
+@Service
 public class UploadFile {
     private final String FOLDER = "images//";
     private final String IMG_DEFAULT = "default.jpg";

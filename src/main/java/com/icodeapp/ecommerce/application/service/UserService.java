@@ -2,10 +2,12 @@ package com.icodeapp.ecommerce.application.service;
 
 import com.icodeapp.ecommerce.application.repository.UserRepository;
 import com.icodeapp.ecommerce.domain.User;
+import org.springframework.stereotype.Service;
 
 /**
  * Esta clase proporciona métodos para manejar los usuarios en la aplicación.
  */
+@Service
 public class UserService {
     private final UserRepository userRepository;
 
